@@ -1,0 +1,31 @@
+<section class="board" aria-label="Sprint board">
+  @for (column of columns; track column.status) {
+    <div class="column" [attr.data-status]="column.status">
+      <header class="column-header">
+        <h2>{{ column.label }}</h2>
+        <span class="count">{{ store.byStatus()[column.status].length }}</span>
+      </header>
+
+      <ul class="cards">
+        @for (task of store.byStatus()[column.status]; track task.id) {
+          <li class="card" data-testid="task-card">
+            <p class="title">{{ task.title }}</p>
+            <p class="assignee">
+              <span class="avatar" aria-hidden="true">{{ assigneeName(task).charAt(0) }}</span>
+              <span class="assignee-name">{{ assigneeName(task) }}</span>
+            </p>
+            <div class="actions">
+              @for (target of otherColumns(task.status); track target.status) {
+                <button type="button" (click)="move(task, target.status)">
+                  &rarr; {{ target.label }}
+                </button>
+              }
+            </div>
+          </li>
+        } @empty {
+          <li class="empty">{{ store.loading() ? 'Loading…' : 'No tasks' }}</li>
+        }
+      </ul>
+    </div>
+  }
+</section>
