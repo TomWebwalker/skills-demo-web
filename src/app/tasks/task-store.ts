@@ -12,10 +12,13 @@ export class TaskStore {
   private readonly _tasks = signal<Task[]>([]);
   private readonly _users = signal<User[]>([]);
   private readonly _loading = signal(false);
+  private readonly _moves = signal(0);
 
   readonly tasks = this._tasks.asReadonly();
   readonly users = this._users.asReadonly();
   readonly loading = this._loading.asReadonly();
+  /** Increments after each successful status change. */
+  readonly moves = this._moves.asReadonly();
 
   readonly byStatus = computed(() => {
     const groups: Record<TaskStatus, Task[]> = { todo: [], 'in-progress': [], done: [] };
@@ -43,8 +46,9 @@ export class TaskStore {
   updateStatus(id: string, status: TaskStatus): void {
     this.http
       .patch<Task>(`/api/tasks/${id}`, { status, actorId: 'u1' })
-      .subscribe((updated) =>
-        this._tasks.update((tasks) => tasks.map((t) => (t.id === updated.id ? updated : t))),
-      );
+      .subscribe((updated) => {
+        this._tasks.update((tasks) => tasks.map((t) => (t.id === updated.id ? updated : t)));
+        this._moves.update((n) => n + 1);
+      });
   }
 }
