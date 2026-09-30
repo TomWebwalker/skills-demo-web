@@ -41,3 +41,18 @@ src/app/
   activity/activity-feed.ts  ActivityFeed — placeholder (issue #42)
   app.ts                     shell: board + Activity panel
 ```
+
+## Angular Jam demo runbook
+
+| Branch | What it is |
+|---|---|
+| `main` | The **before** state for the live demo: activity feed is a placeholder, 3 of 8 tests fail by design. Don't merge anything into it before the talk. |
+| `feat/42-activity-feed` (PR #2) | The finished **rehearsal** run of delivery-skills 1.1 — the backup if the live run stalls. Never merge. |
+
+Live flow (API from `angular-jam-demo-api` running on :3000):
+
+1. `/setup-project-skills` — writes `docs/agents/`, `CLAUDE.md`, the `verify-web` skill and its harness. It asks to add `playwright` as a devDependency: answer yes.
+2. `/loop 42` — answer the grill questions (the recommended answers are fine), let it run builder → checker → reviewer until green and clean.
+3. Say yes to `/finalize-feature` — it opens a PR.
+
+The rehearsal took 4 cycles and roughly 15 minutes for this repo; plan the talk around the backup branch if time is short.
