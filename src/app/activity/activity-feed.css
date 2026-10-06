@@ -1,0 +1,24 @@
+.message {
+  margin: 0;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.text {
+  overflow-wrap: anywhere;
+}
+
+time {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}

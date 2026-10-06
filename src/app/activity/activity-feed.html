@@ -1,0 +1,16 @@
+@if (activityStore.loading()) {
+  <p class="message">Loading…</p>
+} @else if (activityStore.error()) {
+  <p class="message">Couldn't load activity</p>
+} @else if (activityStore.isEmpty()) {
+  <p class="message">No activity yet</p>
+} @else {
+  <ul class="events">
+    @for (line of lines(); track line.event.id) {
+      <li>
+        <span class="text">{{ line.text }}</span>
+        <time [attr.datetime]="line.event.at">{{ line.event.at | date: 'shortTime' }}</time>
+      </li>
+    }
+  </ul>
+}

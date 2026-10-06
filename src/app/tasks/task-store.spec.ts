@@ -53,9 +53,35 @@ describe('TaskStore', () => {
     expect(req.request.method).toBe('PATCH');
     expect(req.request.body).toEqual({ status: 'in-progress', actorId: 'u1' });
     req.flush({ ...tasks[0], status: 'in-progress' });
+    httpMock.expectOne('/api/activity').flush([]);
 
     expect(store.tasks().find((t) => t.id === 't1')?.status).toBe('in-progress');
     expect(store.byStatus()['in-progress'].map((t) => t.id)).toEqual(['t1']);
     expect(store.byStatus().todo).toEqual([]);
+  });
+
+  it('exposes an error when loading fails', () => {
+    store.load();
+    httpMock.match('/api/tasks').forEach((r) => r.flush('boom', { status: 500, statusText: 'Err' }));
+
+    expect(store.error()).toBe(true);
+    expect(store.loading()).toBe(false);
+
+    store.load();
+    expect(store.error()).toBe(false);
+    httpMock.expectOne('/api/tasks').flush(tasks);
+    httpMock.match('/api/users').at(-1)?.flush(users);
+    expect(store.tasks()).toEqual(tasks);
+  });
+
+  it('reloads activity after a successful updateStatus', () => {
+    store.updateStatus('t1', 'done');
+    httpMock.expectNone('/api/activity');
+
+    httpMock.expectOne('/api/tasks/t1').flush({ ...tasks[0], status: 'done' });
+
+    const activityReq = httpMock.expectOne('/api/activity');
+    expect(activityReq.request.method).toBe('GET');
+    activityReq.flush([]);
   });
 });

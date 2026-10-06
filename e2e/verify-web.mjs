@@ -151,6 +151,23 @@ const checks = {
     };
   },
 
+  async 'activity-feed'(ctx) {
+    const events = [
+      { id: 'e2', taskId: 't1', actorId: 'u1', action: 'status-changed', from: 'todo', to: 'done', at: '2026-10-01T10:05:00.000Z' },
+      { id: 'e1', taskId: 't2', actorId: 'u2', action: 'assigned', from: null, to: 'u2', at: '2026-10-01T10:00:00.000Z' },
+    ];
+    const page = await open(ctx, { activity: events });
+    const items = page.locator('aside[aria-label="Activity"] li');
+    await settle(page, async () => (await items.count()) === 2 && (await items.first().innerText()).includes('Fix login'));
+    const texts = (await items.allInnerTexts()).map((t) => t.replace(/\s+/g, ' ').trim());
+    const evidence = await shot(page, ctx, 'activity-feed');
+    const pass =
+      texts.length === 2 &&
+      texts[0].includes('Ada') && texts[0].includes('Fix login') &&
+      texts[1].includes('Linus') && texts[1].includes('Add dark mode');
+    return { pass, detail: `${texts.length} items ${JSON.stringify(texts)}`, evidence };
+  },
+
   // ----- hostile pass -----
 
   async 'hostile-empty'(ctx) {
@@ -262,6 +279,10 @@ const badFixtures = {
       col('done', 'Done', ''),
   ),
   'activity-panel': page(col('todo', 'To do', ''), ''),
+  'activity-feed': page(
+    col('todo', 'To do', ''),
+    '<aside aria-label="Activity"><h2>Activity</h2><ul><li>Someone moved a task</li></ul></aside>',
+  ),
   'hostile-empty': page(
     ['todo', 'in-progress', 'done'].map((s) => col(s, s, '<li class="empty">Loading…</li>')).join(''),
   ),

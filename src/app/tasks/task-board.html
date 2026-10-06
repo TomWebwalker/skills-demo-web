@@ -1,4 +1,7 @@
 <section class="board" aria-label="Sprint board">
+  @if (store.error()) {
+    <p class="error" role="alert">Couldn't load tasks</p>
+  }
   @for (column of columns; track column.status) {
     <div class="column" [attr.data-status]="column.status">
       <header class="column-header">
@@ -23,7 +26,9 @@
             </div>
           </li>
         } @empty {
-          <li class="empty">{{ store.loading() ? 'Loading…' : 'No tasks' }}</li>
+          @if (!store.error()) {
+            <li class="empty">{{ store.loading() ? 'Loading…' : 'No tasks' }}</li>
+          }
         }
       </ul>
     </div>
