@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "skills": {
+    "finalize-feature": {
+      "source": "TomWebwalker/skills",
+      "sourceType": "github",
+      "skillPath": "skills/finalize-feature/SKILL.md",
+      "computedHash": "97b6296ede542a272257e08e5296ecfdb96021f053e02a9986a13e0b3bafd254"
+    },
+    "handoff": {
+      "source": "TomWebwalker/skills",
+      "sourceType": "github",
+      "skillPath": "skills/handoff/SKILL.md",
+      "computedHash": "62023b32941197734a5a87c3816233ae9c873f3893557c026eace2b37f9c21b7"
+    },
+    "loop": {
+      "source": "TomWebwalker/skills",
+      "sourceType": "github",
+      "skillPath": "skills/loop/SKILL.md",
+      "computedHash": "f2b4eb04549311656563ffbe2a91c89848049804fd63750e9623a0970e0a4aa5"
+    },
+    "qa-local": {
+      "source": "TomWebwalker/skills",
+      "sourceType": "github",
+      "skillPath": "skills/qa-local/SKILL.md",
+      "computedHash": "9a27ba2aa77f6bb73e883ccf0df87da032ee816ff516dd6a411b31920e8b90d1"
+    },
+    "retro": {
+      "source": "TomWebwalker/skills",
+      "sourceType": "github",
+      "skillPath": "skills/retro/SKILL.md",
+      "computedHash": "63a24d98e42a74aba849d3ed7326c848ac8cf2465e0cfa88ad4bcae8f451d077"
+    },
+    "setup-project-skills": {
+      "source": "TomWebwalker/skills",
+      "sourceType": "github",
+      "skillPath": "skills/setup-project-skills/SKILL.md",
+      "computedHash": "4acc3286819df54767557e4cf3e2d1c1864b804f32173981c296d01bd38b9a02"
+    },
+    "start-issue": {
+      "source": "TomWebwalker/skills",
+      "sourceType": "github",
+      "skillPath": "skills/start-issue/SKILL.md",
+      "computedHash": "2bea9d8e3b615e313e7d8e60419a33e003cb97e82d9a0b1b8889be03ef02df76"
+    },
+    "verify-feature": {
+      "source": "TomWebwalker/skills",
+      "sourceType": "github",
+      "skillPath": "skills/verify-feature/SKILL.md",
+      "computedHash": "c548b1515f508f96b1dee9355ec455f3e0bbaa1e6e6c1ba386a7a125026b08c5"
+    }
+  }
+}
